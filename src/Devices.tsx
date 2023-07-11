@@ -28,10 +28,10 @@ fetch(urldevice, {
      let modele=[]
     let lastsync=[]
     let type=[]
-       for(let i=0;i<data.length;i++){
-        modele.add(data[i].deviceVersion)
-        lastsync.add(data[i].lastSyncTime)
-        type.add(data[i].type)
+       for(let device in data){
+        modele.push(device.deviceVersion)
+        lastsync.push(device.lastSyncTime)
+        type.push(device.type)
        }
       displaydevice(modele, lastsync, type)
     })
@@ -42,14 +42,21 @@ fetch(urldevice, {
 }
 function displaydevice(modele: string | any[] | undefined, lastsync: any[] | undefined, type: any[] | undefined){
     let htmlval = ""
-  for(let i=0;i<modele.length;i++){
+    if(modele==undefined||modele==null||lastsync==undefined||lastsync==null||type==undefined||type==null){
+        htmlval="No device"
+        setHtml(htmlval)
+    }
+    else{
+         for(let i=0;i<modele.length;i++){
      htmlval+=<li>Modele : {modele[i]} , Last sync :{lastsync[i]}, Type : {type[i]}</li>
      setHtml(htmlval)
        }
     return(html)
     }
+    }
+ 
 
-    return (<div> {displaydevice()}
+    return (<div> 
     </div>)
 }
 export default Devices;
