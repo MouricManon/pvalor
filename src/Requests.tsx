@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 import Body from './Body';
 import Devices from './Devices';
+import Activity from './Activity';
 type RequestsProps = {
   token : string
   id : string
@@ -15,6 +16,7 @@ function Requests({token, id} : RequestsProps) {
       <div>
         <Body date={date} token={token} id={id} />
         <Devices token={token} id={id} />
+        <Activity date={date} token={token} id={id} />
       </div>
     );
   }

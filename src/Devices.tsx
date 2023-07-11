@@ -7,7 +7,7 @@ type DevicesProps = {
   
 
 function Devices({token, id }: DevicesProps) {
-const[html, setHtml]=useState("")
+const[info, setInfo]=useState<any[]>([])
 useEffect(()=>{ getDevices()}
 )
 
@@ -25,10 +25,10 @@ fetch(urldevice, {
     .then(response => response.json())
     .then(data => {
         // Les données récupérées sont stockées dans la variable 'data'
-     let modele=[]
-    let lastsync=[]
-    let type=[]
-       for(let device in data){
+        let modele: any[] = []
+            let lastsync: any[] = []
+            let type: any[] = []
+       for(let device of data){
         modele.push(device.deviceVersion)
         lastsync.push(device.lastSyncTime)
         type.push(device.type)
@@ -39,24 +39,20 @@ fetch(urldevice, {
         // Gestion des erreurs
         console.error('Une erreur s\'est produite:', error);
     });
-}
-function displaydevice(modele: string | any[] | undefined, lastsync: any[] | undefined, type: any[] | undefined){
-    let htmlval = ""
+}function displaydevice(modele: any[] | undefined, lastsync: any[] | undefined, type: any[] | undefined){
     if(modele==undefined||modele==null||lastsync==undefined||lastsync==null||type==undefined||type==null){
-        htmlval="No device"
-        setHtml(htmlval)
+        setInfo(["No device"])
     }
     else{
          for(let i=0;i<modele.length;i++){
-     htmlval+=<li>Modele : {modele[i]} , Last sync :{lastsync[i]}, Type : {type[i]}</li>
-     setHtml(htmlval)
-       }
-    return(html)
+    setInfo(info => [...info, [modele[i], lastsync[i], type[i]]])  }  
+    return(info)
+ 
     }
     }
  
 
-    return (<div> 
+    return (<div> <ul>{info.map((i)=>(<li>Version : {i[0]} , Last sync : {i[1]} , Type : {i[2]} </li>))}</ul>
     </div>)
 }
 export default Devices;
