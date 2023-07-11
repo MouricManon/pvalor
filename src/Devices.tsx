@@ -8,7 +8,8 @@ type DevicesProps = {
 
 function Devices({token, id }: DevicesProps) {
 const[info, setInfo]=useState<any[]>([])
-useEffect(()=>{ getDevices()}
+useEffect(()=>{ getDevices()
+setInfo([0])}
 )
 
 async function getDevices(){

@@ -9,7 +9,8 @@ type ActivityProps = {
 
 function Activity({date,token, id }: ActivityProps) {
 const[info, setInfo]=useState<any[]>([])
-useEffect(()=>{ getActivezone()}
+useEffect(()=>{ getActivezone()
+    setInfo([0])}
 )
 
 async function getActivezone(){
@@ -29,20 +30,24 @@ fetch(urlactivezonemin, {
         let activeZoneMinutes: any[] = []
             let fatBurnActiveZoneMinutes: any[] = []
             let peakActiveZoneMinutes: any[] = []
+            if(data==undefined||data==null){
+            }
+            else{
        for(let item of data){
         dateTime.push(item.dateTime)
         activeZoneMinutes.push(item.value.activeZoneMinutes)
         fatBurnActiveZoneMinutes.push(item.value.fatBurnActiveZoneMinutes)
         peakActiveZoneMinutes.push(item.value.peakActiveZoneMinutes)
         console.log(data)
-       }
+       }}
       displayactivityzone(dateTime,activeZoneMinutes, fatBurnActiveZoneMinutes, peakActiveZoneMinutes)
     })
     .catch(error => {
         // Gestion des erreurs
         console.error('Une erreur s\'est produite:', error);
     });
-}function displayactivityzone(dateTime: any[] | undefined, activeZoneMinutes: any[] | undefined, fatBurnActiveZoneMinutes: any[] | undefined, peak: any[] | undefined){
+}
+function displayactivityzone(dateTime: any[] | undefined, activeZoneMinutes: any[] | undefined, fatBurnActiveZoneMinutes: any[] | undefined, peak: any[] | undefined){
     if(dateTime==undefined||dateTime==null||activeZoneMinutes==undefined||activeZoneMinutes==null||fatBurnActiveZoneMinutes==undefined||fatBurnActiveZoneMinutes==null||peak==undefined||peak==null){
         setInfo(["No datas about AZM"])
     }
