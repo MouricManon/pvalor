@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import Body from './Body';
+import Devices from './Devices';
+type RequestsProps = {
+  token : string
+  id : string
+}
 
-function Requests() {
+function Requests({token, id} : RequestsProps) {
   const [date, setDate] = useState(moment().format('YYYY-MM-DD')); 
 
   function sendRequest() {
-    console.log(date)
     return (
       <div>
-        <Body date={date} />
+        <Body date={date} token={token} id={id} />
+        <Devices token={token} id={id} />
       </div>
     );
   }

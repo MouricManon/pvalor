@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react'
 type BodyProps = {
   date : string
+  token : string
+  id : string
 }
 
 
-function Body({ date }: BodyProps) {
-    const [donnees, setDonnees] = useState<any>(null); 
+function Body({ date, token, id }: BodyProps) {
+    
     const [fat, setFat] = useState<any>(null); 
     const [weight, setWeight] = useState<any>(null); 
     const [temp, setTemp] = useState<any>(null); 
     const[avgfat,setAvgfat]=useState(1)
     const[avgweight,setAvgweight]=useState(1)
     const[avgtemp,setAvgtemp]=useState(1)
-    const[token,setToken]=useState("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1I3NzYiLCJzdWIiOiJCTUJDUVYiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJlY2cgcnNldCByb3h5IHJwcm8gcm51dCByc2xlIHJjZiByYWN0IHJsb2MgcnJlcyByd2VpIHJociBydGVtIiwiZXhwIjoxNjg5MDI0ODc2LCJpYXQiOjE2ODg5OTYwNzZ9.qd0-x39pdxlb60f7HUuJk5uo2gL_RchtTgJFKkyO4hY")
-    const[id,setid]=useState("-")
     useEffect(()=>{ getFat().then(r=>setFat(r)); getWeight().then(r=>setWeight(r));
     getTemp().then(r=>setTemp(r))},[date]
 )
@@ -31,11 +31,6 @@ fetch(url, {
     })
     .then(response => response.json())
     .then(data => {
-        // Les données récupérées sont stockées dans la variable 'data'
-        console.log(data);
-        //function async je lui fais un return data je le mets dans un useEffect{(()=>{ fctionasync().then(r=>setMass(r))},[date])}} 
-
-        // Traitez les données ici
     })
     .catch(error => {
         // Gestion des erreurs
@@ -55,9 +50,6 @@ fetch(urlbodyweight, {
     })
     .then(response => response.json())
     .then(data => {
-        // Les données récupérées sont stockées dans la variable 'data'
-        console.log(data);
-        // Traitez les données ici
     })
     .catch(error => {
         // Gestion des erreurs
@@ -79,9 +71,6 @@ fetch(urltemp, {
     })
     .then(response => response.json())
     .then(data => {
-        // Les données récupérées sont stockées dans la variable 'data'
-        console.log(data);
-        // Traitez les données ici
     })
     .catch(error => {
         // Gestion des erreurs
@@ -143,7 +132,7 @@ function isnulltemp(){
         return(<h1>The average temperature of the day is {tempdisplay()}</h1>)
     }
 }
-    return (<div>Je suis le fils {date}
+    return (<div>
     <div>{isnullfat()}</div>
     <div>{isnullweight()}</div>
     <div>{isnulltemp()}</div></div>)
