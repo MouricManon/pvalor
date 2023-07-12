@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import "./devices.css"
 
 type DevicesProps = {
   token: string;
@@ -7,9 +8,6 @@ type DevicesProps = {
 
 function Devices({ token, id }: DevicesProps) {
   const [info, setInfo] = useState<any[]>([]);
-  const [modele, setModele] = useState<string[]>([]);
-  const [lastsync, setLastsync] = useState<any[]>([]);
-  const [type, setType] = useState<any[]>([]);
 
   useEffect(() => {
     getDevices();
@@ -26,10 +24,14 @@ function Devices({ token, id }: DevicesProps) {
     })
       .then(response => response.json())
       .then(data => {
+        let modele: any[] = []
+        let lastsync: any[] = []
+        let type: any[] = []
+        
         for (let device of data) {
-          setModele(prevModele => [...prevModele, device.deviceVersion]);
-          setLastsync(prevLastSync => [...prevLastSync, device.lastSyncTime]);
-          setType(prevType => [...prevType, device.type]);
+          modele.push(device.deviceVersion);
+          lastsync.push(device.lastSyncTime);
+          type.push(device.type);
         }
         displayDevice(modele, lastsync, type);
       })
@@ -38,9 +40,9 @@ function Devices({ token, id }: DevicesProps) {
       });
   }
 
-  function displayDevice(modele: string[] | undefined, lastsync: any[] | undefined, type: any[] | undefined) {
-    if (modele == undefined || modele == null || lastsync == undefined || lastsync == null || type == undefined || type == null) {
-      setInfo(['No device']);
+  function displayDevice(modele: string[], lastsync: any[], type: any[]) {
+    setInfo([])
+    if (modele.length==0) {
     } else {
       let updatedInfo: any[] = [];
       for (let i = 0; i < modele.length; i++) {
@@ -49,16 +51,19 @@ function Devices({ token, id }: DevicesProps) {
       setInfo(updatedInfo);
     }
   }
-
+    function formatLastSyncTime(lastSyncTime: string) {
+      const date = new Date(lastSyncTime);
+      const formattedDate = date.toISOString().split('T')[0];
+      return formattedDate;
+    }
+  
   return (
     <div>
-      <ul>
-        {info.map(i => (
-          <li>
-            Version: {i[0]}, Last sync: {i[1]}, Type: {i[2]}
-          </li>
-        ))}
-      </ul>
+      <ul id="devices">{info.length == 0?
+            <li id="nodevice">No devices found</li> :
+            <> {info.map((i, index) => (
+                <li id="onedevice" key={index}> <img id="imageiot" alt="IoT" src="/assets/iot.jpg"/> Version: {i[0]}, Last sync: {formatLastSyncTime(i[1])}, Type: {i[2]}</li>))}</>}
+        </ul>
     </div>
   );
 }

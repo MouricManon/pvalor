@@ -12,8 +12,8 @@ function Breath({ date, token, id }: BreathProps) {
     const [vo2, setVo2] = useState<any[]>([]); 
     const [datebeginning, setDatebegin] =   useState(moment().format('YYYY-MM-DD')); 
     useEffect(()=>{ getbr()
-        getvo2(),[date]
-    })
+        getvo2()
+    },[date])
 
 async function getbr(){
 
@@ -28,12 +28,12 @@ async function getbr(){
         .then(data => {
             let dateTime: any[] = []
         let br: any[] = []
-            if(data==undefined||data==null){
+            if(data.br==undefined||data.br==null){
             }
             else{
-       for(let item of data){
-        dateTime.push(item.br.dateTime)
-        br.push(item.br.value.breathingRate)
+       for(let item of data.br){
+        dateTime.push(item.dateTime)
+        br.push(item.value.breathingRate)
         console.log(data)
        }}
          brdisplay(dateTime,br)
@@ -60,12 +60,12 @@ fetch(urlvo2, {
     .then(data => {
         let dateTime: any[] = []
         let cardioscore: any[] = []
-            if(data==undefined||data==null){
+            if(data.cardioScore==undefined||data.cardioScore==null){
             }
             else{
-       for(let item of data){
-        dateTime.push(item.cardioScore.dateTime)
-        cardioscore.push(item.cardioScore.value.vo2Max)
+       for(let item of data.cardioScore){
+        dateTime.push(item.dateTime)
+        cardioscore.push(item.value.vo2Max)
         console.log(data)
        }}
        vo2display(dateTime,cardioscore)
@@ -78,25 +78,23 @@ fetch(urlvo2, {
     
 
 }
-function brdisplay(dateTime: any[] | undefined, br:any[] | undefined){
-    if(dateTime==undefined||dateTime==null||br==undefined||br==null){
-        setbr(["No datas about BR"])
+function brdisplay(dateTime: any[], br:any[]){
+    setbr([])
+    if(dateTime.length==0){
     }
     else{
          for(let i=0;i<dateTime.length;i++){
     setbr(br => [...br, [dateTime[i],br[i]]])  }  
-    return(br)
  
     }
     }
-    function vo2display(dateTime: any[] | undefined, cardioScore: any[] | undefined){
-        if(dateTime==undefined||dateTime==null||cardioScore==undefined||cardioScore==null){
-            setVo2(["No datas about vo2"])
+    function vo2display(dateTime: any[], cardioScore: any[]){
+        setVo2([])
+        if(dateTime.length==0){
         }
         else{
              for(let i=0;i<dateTime.length;i++){
         setVo2(vo2 => [...vo2, [dateTime[i],cardioScore[i]]])  }  
-        return(vo2)
      
         }
         }
@@ -105,8 +103,15 @@ function brdisplay(dateTime: any[] | undefined, br:any[] | undefined){
     value={datebeginning} 
     onChange={(event) => setDatebegin(event.target.value)} 
   />
-    <ul>{br.map((i)=>(<li>Breating rate : {i[1]} , Date Time : {i[0]}</li>))}</ul>
-    <ul>{vo2.map((i)=>(<li>Vo2 max : {i[1]} , Date & Time: {i[0]}  </li>))}</ul>
+  <ul>{br.length == 0 ?
+            <li>No data found about BR</li> :
+            <> {br.map((i, index) => (
+                <li key={index}>Breating rate : {i[1]} , Date Time : {i[0]}</li>))}</>}
+        </ul>
+        <ul>{vo2.length == 0 ?
+            <li>No data found about vo2</li> :
+            <> {vo2.map((i, index) => (
+                <li key={index}>Vo2 max : {i[1]} , Date & Time: {i[0]}  </li>))}</>}</ul>
 </div>)
 }
 export default Breath;

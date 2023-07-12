@@ -14,6 +14,7 @@ function Body({ date, token, id }: BodyProps) {
     const[avgfat,setAvgfat]=useState(1)
     const[avgweight,setAvgweight]=useState(1)
     const[avgtemp,setAvgtemp]=useState(1)
+    const[bmi,setbmi]=useState(1)
     useEffect(()=>{ getFat().then(r=>setFat(r)); getWeight().then(r=>setWeight(r));
     getTemp().then(r=>setTemp(r))},[date]
 )
@@ -50,6 +51,7 @@ fetch(urlbodyweight, {
     })
     .then(response => response.json())
     .then(data => {
+        setbmi(data.bmi)
     })
     .catch(error => {
         // Gestion des erreurs
@@ -116,6 +118,14 @@ function isnullfat(){
         return(<h1>The average fat of the day is {fatdisplay()}</h1>)
     }
 }
+function isnullbmi(){
+    if(bmi===null|| bmi===undefined){
+        return(<h1> There is no bmi valor</h1>)
+    }
+    else{
+        return(<h1>bmi :{bmi}</h1>)
+    }
+}
 function isnullweight(){
     if(weight===null|| weight===undefined){
         return(<h1> There is no weight valor</h1>)
@@ -135,6 +145,7 @@ function isnulltemp(){
     return (<div>
     <div>{isnullfat()}</div>
     <div>{isnullweight()}</div>
-    <div>{isnulltemp()}</div></div>)
+    <div>{isnulltemp()}</div>
+    <div>{isnullbmi()}</div></div>)
 }
 export default Body;

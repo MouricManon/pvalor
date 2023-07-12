@@ -17,8 +17,8 @@ function Heart({ date, token, id }: HeartProps) {
     useEffect(()=>{ gethr()
         getspo2()
         getecg()
-        gethrv(),[date]
-    })
+        gethrv()
+    },[date])
 
 async function gethr(){
 
@@ -37,11 +37,11 @@ fetch(urlhrt, {
     .then(data => {
         let rhr: any[] = []
     
-            if(data==undefined||data==null){
+            if(data['activities-heart']==undefined||data['activities-heart']==null||data['activities-heart'].restingHeart){
             }
             else{
-       for(let item of data){
-        rhr.push(item.activities-heart.restingHeartRate)
+       for(let item of data['activities-heart']){
+        rhr.push(item.restingHeartRate)
         console.log(data)
        }}
          hrdisplay(rhr)
@@ -69,16 +69,16 @@ fetch(urlecg, {
         let frequency: any[] = []
         let scalingfactor: any[] = []
         let nbwave: any[] = []
-            if(data==undefined||data==null){
+            if(data.ecgReadings==undefined||data.ecgReadings==null){
             }
             else{
-       for(let item of data){
-        startTime.push(item.sleep.duration)
-        avghr.push(item.sleep.efficiency)
-        classification.push(item.sleep.minutesAsleep)
-        frequency.push(item.sleep.minutesAwake)
-        scalingfactor.push(item.summary.stages.deep)
-        nbwave.push(item.summary.stages.light)
+       for(let item of data.ecgReadings){
+        startTime.push(item.startTime)
+        avghr.push(item.averageHeartRate)
+        classification.push(item.resultClassification)
+        frequency.push(item.samplingFrequencyHz)
+        scalingfactor.push(item.scalingFactor)
+        nbwave.push(item.numberOfWaveformSamples)
         console.log(data)
        }}
          ecgdisplay(startTime,avghr,classification,frequency,scalingfactor,nbwave)
@@ -104,13 +104,13 @@ fetch(urlhrv, {
         let dailyRmssd: any[] = []
         let deepRmssd: any[] = []
         let dateTime: any[] = []
-            if(data==undefined||data==null){
+            if(data.hrv==undefined||data.hrv==null){
             }
             else{
-       for(let item of data){
-        dailyRmssd.push(item.hrv.value.dailyRmssd)
-        deepRmssd.push(item.hrv.value.deepRmssd)
-        dateTime.push(item.hrv.dateTime)
+       for(let item of data.hrv){
+        dailyRmssd.push(item.value.dailyRmssd)
+        deepRmssd.push(item.value.deepRmssd)
+        dateTime.push(item.dateTime)
         console.log(data)
        }}
          hrvdisplay(dailyRmssd,deepRmssd,dateTime)
@@ -152,21 +152,33 @@ fetch(urlspo, {
     .catch(error => {
         // Gestion des erreurs
         console.error('Une erreur s\'est produite:', error);
-    });}
-    function hrdisplay(rhr: any[] | undefined){
-        if(rhr==undefined||rhr==null){
-            sethr(["No datas about heart rate on this day"])
+    });}function hrdisplay(rhr: any[]) {
+        //On vide le tableau pour éviter les doublons
+        sethr([])
+        //Il se trouve que même si on a pas de données, le tableau est quand même rempli
+        let drapeau: boolean = false
+        if (rhr != undefined) {
+            for (let i = 0; i < rhr.length; i++) {
+                //Pour éviter d'avoir des lignes vides
+                if (rhr[i] == undefined) {
+                    drapeau = true
+                }
+            }
+            if (drapeau) {
+            } else {
+                for (let i = 0; i < rhr.length; i++) {
+                    //Pour éviter d'avoir des lignes vides
+                    if (rhr[i] == undefined) {
+                    } else {
+                        sethr(hr => [...hr, [rhr[i]]])
+                    }
+                }
+            }
         }
-        else{
-             for(let i=0;i<rhr.length;i++){
-        sethr(hr => [...hr, [rhr[i]]])  }  
-        return(hr)
-     
-        }
-        }
-    function ecgdisplay(startTime: any[] | undefined,avghr: any[] | undefined,classification: any[] | undefined,frequency: any[] | undefined,scalingfactor: any[] | undefined,nbwave: any[] | undefined){
-        if(startTime==undefined || startTime==null ||avghr==undefined|| avghr==null ||classification==undefined|| classification==null|| frequency==undefined || frequency==null||scalingfactor==undefined || scalingfactor==null||nbwave==undefined||nbwave==null ){
-            setecg(["No datas about ecg"])
+    }
+    function ecgdisplay(startTime: any[],avghr: any[],classification: any[],frequency: any[],scalingfactor: any[],nbwave: any[]){
+        setecg([])
+        if(startTime.length==0 ){
         }
         else{
              for(let i=0;i<startTime.length;i++){
@@ -175,9 +187,9 @@ fetch(urlspo, {
      
         }
         }
-        function hrvdisplay(dailyRmssd: any[] | undefined,deepRmssd:any[] | undefined, dateTime:any[] | undefined){
-            if(dailyRmssd==undefined||dailyRmssd==null||deepRmssd==undefined||deepRmssd==null||dateTime==undefined||dateTime==null){
-                sethrv(["No datas about HRV on this day"])
+        function hrvdisplay(dailyRmssd: any[],deepRmssd:any[], dateTime:any[]){
+            sethrv([])
+            if(dailyRmssd.length==0){
             }
             else{
                  for(let i=0;i<dailyRmssd.length;i++){
@@ -186,9 +198,9 @@ fetch(urlspo, {
          
             }
             }
-            function spo2display(dateTime: any[] | undefined, avg:any[] | undefined, min:any[] | undefined, max:any[] | undefined){
-                if(dateTime==undefined||dateTime==null||avg==undefined||avg==null||min==undefined||min==null||max==undefined||max==null){
-                    setspo2(["No datas about spo2 on this day"])
+            function spo2display(dateTime: any[], avg:any[], min:any[], max:any[]){
+                setspo2([])
+                if(dateTime.length==0){
                 }
                 else{
                      for(let i=0;i<dateTime.length;i++){
@@ -202,10 +214,24 @@ fetch(urlspo, {
     value={datebeginning} 
     onChange={(event) => setDatebegin(event.target.value)} 
   /> 
-    <ul>{hr.map((i)=>(<li>Resting heart rate : {i[0]} </li>))}</ul>
-    <ul>{ecg.map((i)=>(<li>ECG : Start time : {i[0]} , Average Heart rate : {i[1]} , Classification : {i[2]} , Frequency : {i[3]} , Scaling factor : {i[4]} , Number of waves :{i[5]}</li>))}</ul>
-    <ul>{hrv.map((i)=>(<li>HRV : Date time : {i[2]} , Value of Hrv for daily Rmssd  :{i[0]}, Value of Hrv for deep Rmssd  : {i[1]} </li>))}</ul>
-    <ul>{spo2.map((i)=>(<li>Spo2 : Date time : {i[0]} , Maximum: {i[3]}, Minimum :{i[2]} , Average :{i[1]}   </li>))}</ul>
+  <ul>{hr.length == 0 ?
+            <li>No HR found</li> :
+            <> {hr.map((i, index) => (
+                <li key={index}>Resting heart rate : {i[0]}</li>))}</>}
+        </ul>
+    <ul>{ecg.length == 0 ?
+            <li>No ecg found</li> :
+            <> {ecg.map((i, index) => (
+                <li key={index}>ECG : Start time : {i[0]} , Average Heart rate : {i[1]} , Classification : {i[2]} , Frequency : {i[3]} , Scaling factor : {i[4]} , Number of waves :{i[5]}</li>))}</>}
+    </ul>
+    <ul>{hrv.length == 0 ? 
+            <li>No HRV found</li> :
+            <> {hrv.map((i, index) => (
+                <li key={index}>HRV : Date time : {i[2]} , Value of Hrv for daily Rmssd  :{i[0]}, Value of Hrv for deep Rmssd  : {i[1]} </li>))}</>}</ul>
+   <ul>{spo2.length == 0 ?
+            <li>No spo2 found</li> :
+            <> {spo2.map((i, index) => (
+                <li key={index}>Spo2 : Date time : {i[0]} , Average : {i[1]} , Minimum : {i[2]} , Maximum : {i[3]} </li>))}</>}</ul>
 </div>)
 }
 export default Heart;

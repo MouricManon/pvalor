@@ -10,7 +10,7 @@ function Sleep({ date, token, id }: SleepProps) {
     
     const [sleep, setsleep] = useState<any[]>([]);
     useEffect(()=>{ getsleep()
-        ,[date]}
+        },[date]
 )
 
 async function getsleep(){
@@ -34,30 +34,29 @@ fetch(urlsleepbydater, {
         let remsleep: any[] = []
         let waketime: any[] = []
         let timeinbed: any[] = []
-            if(data==undefined||data==null){
+            if(data.sleep.length==0){
             }
             else{
-       for(let item of data){
-        duration.push(item.sleep.duration)
-        efficiency.push(item.sleep.efficiency)
-        minutesAsleep.push(item.sleep.minutesAsleep)
-        minutesAwake.push(item.sleep.minutesAwake)
-        deepsleep.push(item.summary.stages.deep)
-        lightsleep.push(item.summary.stages.light)
-        remsleep.push(item.summary.rem)
-        waketime.push(item.summary.wake)
-        timeinbed.push(item.totalTimeInBed)
+       for(let item of data.sleep){
+        duration.push(item.duration)
+        efficiency.push(item.efficiency)
+        minutesAsleep.push(item.minutesAsleep)
+        minutesAwake.push(item.minutesAwake)}
+        deepsleep.push(data.summary.stages?.deep)
+        lightsleep.push(data.summary.stages?.light)
+        remsleep.push(data.summary?.rem)
+        waketime.push(data.summary?.wake)
+        timeinbed.push(data.summary.totalTimeInBed)}
         console.log(data)
-       }}
          sleepdisplay(duration,efficiency,minutesAsleep,minutesAwake,deepsleep,lightsleep,remsleep,waketime,timeinbed)
     })
     .catch(error => {
         // Gestion des erreurs
         console.error('Une erreur s\'est produite:', error);
     })}
-function sleepdisplay(duration: any[] | undefined, efficiency:any[] | undefined, minutesAsleep:any[] | undefined, minutesAwake:any[] | undefined, deepsleep:any[] | undefined, lightsleep:any[] | undefined, remsleep:any[] | undefined, waketime:any[] | undefined, timeinbed:any[] | undefined){
-    if(duration==undefined||duration==null||efficiency==undefined||efficiency==null||minutesAsleep==undefined||minutesAsleep==null||minutesAwake==undefined||minutesAwake==null||deepsleep==undefined||deepsleep==null||lightsleep==undefined||lightsleep==null||remsleep==undefined||remsleep==null||waketime==undefined||waketime==null||timeinbed==undefined||timeinbed==null){
-        setsleep(["No datas about sleeping on this day"])
+function sleepdisplay(duration: any[], efficiency:any[], minutesAsleep:any[], minutesAwake:any[], deepsleep:any[], lightsleep:any[], remsleep:any[] , waketime:any[] , timeinbed:any[] ){
+    setsleep([])
+    if(duration.length==0){
     }
     else{
          for(let i=0;i<duration.length;i++){
@@ -68,7 +67,11 @@ function sleepdisplay(duration: any[] | undefined, efficiency:any[] | undefined,
     }
     
     return (<div>
-   <ul>{sleep.map((i)=>(<li>Duration : {i[0]} , Efficiency : {i[1]}%, Minutes Asleep : {i[2]}, Minutes Awake : {i[3]}, Stages :  Deep sleep : {i[3]}, Light sleep : {i[4]}, Rem sleep : {i[5]}, Wake time : {i[6]} </li>))}</ul>
+         <ul>{sleep.length == 0?
+            <li>No sleep's data found</li> :
+            <> {sleep.map((i, index) => (
+                <li key={index}>  Duration : {i[0]} , Efficiency : {i[1]}%, Minutes Asleep : {i[2]}, Minutes Awake : {i[3]}, Stages :  Deep sleep : {i[3]}, Light sleep : {i[4]}, Rem sleep : {i[5]}, Wake time : {i[6]}</li>))}</>}
+        </ul>
 </div>)
 }
 export default Sleep;

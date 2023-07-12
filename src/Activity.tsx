@@ -31,16 +31,17 @@ fetch(urlactivezonemin, {
         let activeZoneMinutes: any[] = []
             let fatBurnActiveZoneMinutes: any[] = []
             let peakActiveZoneMinutes: any[] = []
-            if(data==undefined||data==null){
+            if(data==undefined||data==null||data.value==undefined||data.value==null){
             }
             else{
        for(let item of data){
-        dateTime.push(item.dateTime)
-        activeZoneMinutes.push(item.value.activeZoneMinutes)
-        fatBurnActiveZoneMinutes.push(item.value.fatBurnActiveZoneMinutes)
-        peakActiveZoneMinutes.push(item.value.peakActiveZoneMinutes)
+        dateTime.push(item.dateTime)}
+        for(let item of data.value){
+        activeZoneMinutes.push(item.activeZoneMinutes)
+        fatBurnActiveZoneMinutes.push(item.fatBurnActiveZoneMinutes)
+        peakActiveZoneMinutes.push(item.peakActiveZoneMinutes)}
         console.log(data)
-       }}
+       }
       displayactivityzone(dateTime,activeZoneMinutes, fatBurnActiveZoneMinutes, peakActiveZoneMinutes)
     })
     .catch(error => {
@@ -68,18 +69,18 @@ fetch(urlactivitylist, {
         let elevationgain: any[] = []
         let steps: any[] = []
         let distance: any[] = []
-            if(data==undefined||data==null){
+            if(data.activities==undefined||data.activities==null){
             }
             else{
-       for(let item of data){
-        activeDuration.push(item.activities.activeDuration)
-        activitylevelmin.push(item.activities.activityLevel.minutes)
-        activitylevelname.push(item.activities.activityLevel.name)
-        calories.push(item.activities.calories)
-        elevationgain.push(item.activities.elevationGain)
-        steps.push(item.activities.steps)
-        distance.push(item.activities.distance)
-        activityname.push(item.activities.activityName)
+       for(let item of data.activities){
+        activeDuration.push(item.activeDuration)
+        activitylevelmin.push(item.activityLevel.minutes)
+        activitylevelname.push(item.activityLevel.name)
+        calories.push(item.calories)
+        elevationgain.push(item.elevationGain)
+        steps.push(item.steps)
+        distance.push(item.distance)
+        activityname.push(item.activityName)
         console.log(data)
        }}
       displayactivitylist(activeDuration,activitylevelmin, activitylevelname, activityname,calories,elevationgain,steps,distance)
@@ -89,21 +90,19 @@ fetch(urlactivitylist, {
         console.error('Une erreur s\'est produite:', error);
     })}
 
-function displayactivityzone(dateTime: any[] | undefined, activeZoneMinutes: any[] | undefined, fatBurnActiveZoneMinutes: any[] | undefined, peak: any[] | undefined){
-    if(dateTime==undefined||dateTime==null||activeZoneMinutes==undefined||activeZoneMinutes==null||fatBurnActiveZoneMinutes==undefined||fatBurnActiveZoneMinutes==null||peak==undefined||peak==null){
-        setInfo(["No datas about AZM"])
+function displayactivityzone(dateTime: any[], activeZoneMinutes: any[], fatBurnActiveZoneMinutes: any[], peak: any[] ){
+    setInfo([])
+    if(dateTime.length==0){
     }
     else{
          for(let i=0;i<dateTime.length;i++){
     setInfo(info => [...info, [dateTime[i],activeZoneMinutes[i], fatBurnActiveZoneMinutes[i], peak[i]]])  }  
-    return(info)
- 
-    }
+    } return(info)
     }
  
-    function displayactivitylist(activeDuration: any[] | undefined, activitylevelmin: any[] | undefined, activitylevelname: any[] | undefined, activityname: any[] | undefined,calories: any[] | undefined,elevationgain: any[] | undefined,steps: any[] | undefined,distance: any[] | undefined){
-        if(activeDuration==undefined||activeDuration==null||activitylevelmin==undefined||activitylevelmin==null||activitylevelname==undefined||activitylevelname==null||activityname==undefined||activityname==null||calories==undefined||calories==null||elevationgain==undefined||elevationgain==null||steps==undefined||steps==null||distance==undefined||distance==null){
-            setInfolist(["No datas about Activities"])
+    function displayactivitylist(activeDuration: any[] , activitylevelmin: any[], activitylevelname: any[], activityname: any[],calories: any[] ,elevationgain: any[],steps: any[],distance: any[] ){
+        setInfolist([])
+        if(activeDuration.length==0){
         }
         else{
              for(let i=0;i<activeDuration.length;i++){
@@ -114,7 +113,17 @@ function displayactivityzone(dateTime: any[] | undefined, activeZoneMinutes: any
         }
      
 
-    return (<div> <ul>{info.map((i)=>(<li>Date : {i[0]} , Active zone minutes: {i[1]} , Fat Burn Active Zone minutes : {i[2]}, Peak Active Zone Minutes : {i[3]} </li>))}</ul>
-    <ul>{infolist.map((i)=>(<li>Date : {date}, Activity duration : {i[0]} , Activity name : {i[3]}, Activity level name: {i[2]} , Activity level duration : {i[1]}, Calories burned {i[4]},Elevation gain {i[4]}, Steps : {i[5]}, Distance : {i[6]} </li>))}</ul></div>)
+    return (<div><ul>{info.length == 0 ?
+        <li>No datas about AZM</li> :
+        <> {info.map((i, index) => (
+            <li key={index}>Date : {i[0]} , Active zone minutes: {i[1]} , Fat Burn Active Zone minutes : {i[2]}, Peak Active
+                Zone
+                Minutes : {i[3]} </li>))}</>}
+    </ul> 
+    <ul>{infolist.length == 0?
+            <li>No data about activity</li> :
+            <> {infolist.map((i,index) => (
+                <li key={index}>Date : {date}, Activity duration : {i[0]} , Activity name : {i[3]}, Activity level name: {i[2]} , Activity level duration : {i[1]}, Calories burned {i[4]},Elevation gain {i[4]}, Steps : {i[5]}, Distance : {i[6]}  </li>))}</>}
+        </ul></div>)
 }
 export default Activity;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import "./profile.css"
 type ProfileProps = {
     token : string
     id : string
@@ -32,6 +32,6 @@ fetch(urlprofile, {
     });
 }
 
-    return (<div>{name}, {dateofbirth}</div>)
+    return (<div><div id="name">{name}</div> <div id="birthdate">{dateofbirth}</div></div>)
 }
 export default Profile;
