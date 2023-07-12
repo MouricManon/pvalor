@@ -58,11 +58,12 @@ function Devices({ token, id }: DevicesProps) {
     }
   
   return (
-    <div>
-      <ul id="devices">{info.length == 0?
+    <div id="devices">
+      <h1>DEVICES</h1>
+      <ul >{info.length == 0?
             <li id="nodevice">No devices found</li> :
             <> {info.map((i, index) => (
-                <li id="onedevice" key={index}> <img id="imageiot" alt="IoT" src="/assets/iot.jpg"/> Version: {i[0]}, Last sync: {formatLastSyncTime(i[1])}, Type: {i[2]}</li>))}</>}
+                <li id="onedevice" key={index}> <img id="imageiot" alt="IoT" src="/assets/iot.jpg"/> Version : {i[0]} Last sync : {formatLastSyncTime(i[1])} Type : {i[2]}</li>))}</>}
         </ul>
     </div>
   );
