@@ -57,14 +57,14 @@ function Devices({ token, id }: DevicesProps) {
       const formattedDate = date.toISOString().split('T')[0];
       return formattedDate;
     }
-  
+
   return (
     <div id="devices">
-     <div id="titre"><img id="imageiot" alt="IoT" src={IoTimage}/><h1>DEVICES</h1></div>
+     <div ><img id="imageiot" alt="IoT" src={IoTimage}/><h1>DEVICES</h1></div>
       <ul >{info.length == 0?
             <li id="nodevice">No devices found</li> :
             <> {info.map((i, index) => (
-                <li id="onedevice" key={index}>  Version : {i[0]} Last sync : {formatLastSyncTime(i[1])} Type : {i[2]}</li>))}</>}
+                <li id="onedevice" key={index}>  Version : {i[0]} <ul><li> Last sync : {formatLastSyncTime(i[1])}</li><li> Type : {i[2]}</li></ul></li>))}</>}
         </ul>
     </div>
   );

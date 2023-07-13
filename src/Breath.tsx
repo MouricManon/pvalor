@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import moment from 'moment';
+import "./breath.css"
+import breathimage from "./public/assets/breath.png"
+import pollutants from "./public/assets/pollutants.jpg"
 type BreathProps = {
   date : string
   token : string
@@ -98,20 +101,31 @@ function brdisplay(dateTime: any[], br:any[]){
      
         }
         }
-   return (<div><input 
+        function formatLastSyncTime(lastSyncTime: string) {
+            const date = new Date(lastSyncTime);
+            const formattedDate = date.toISOString().split('T')[0];
+            return formattedDate;
+          }
+      
+   return (<div id="breath"><div id="titrebreath"><img id="breathimage" alt="breath" src={breathimage}/><h1>Breath</h1></div>
+    <div className="datebegin"><h2>Choose the beginning date</h2><input 
     type="date" 
     value={datebeginning} 
     onChange={(event) => setDatebegin(event.target.value)} 
-  />
+  /></div>
   <ul>{br.length == 0 ?
-            <li>No data found about BR</li> :
+            <li id="nobr">No data found about BR</li> :
             <> {br.map((i, index) => (
-                <li key={index}>Breating rate : {i[1]} , Date Time : {i[0]}</li>))}</>}
+                <li id="onebr" key={index}> Breathing rate : Date & Time : formatLastSyncTime({i[0]}) <li>Breating rate : {i[1]}</li></li>))}</>}
         </ul>
         <ul>{vo2.length == 0 ?
-            <li>No data found about vo2</li> :
+            <li id="novo2">No data found about vo2</li> :
             <> {vo2.map((i, index) => (
-                <li key={index}>Vo2 max : {i[1]} , Date & Time: {i[0]}  </li>))}</>}</ul>
+                <li key={index} id="onevo2"> VO2 : Date & Time: formatLastSyncTime({i[0]})<li>Vo2 max : {i[1]} </li> </li>))}</>}</ul>
+        <ul className="notdone"> <li>//Take of SABA </li><li>Quantity : </li>
+        <li>//Time : </li> </ul>
+        <ul className="notdone"><li>//Respiratory volume</li><li>Flow</li></ul>
+<ul className="notdone"><li>//Pollutants</li> <img id="pollutantsimage" alt="pollutants" src={pollutants}/></ul>    
 </div>)
 }
 export default Breath;

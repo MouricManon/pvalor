@@ -1,28 +1,44 @@
-#onesleep {
+#oneazm {
     list-style: square;
-    padding-top: 6.25vw;
+    padding-top: 0.25vw;
     padding-left: 0.25vw;
     padding-right: 0.25vw;
     padding-bottom: 0.25vw;
-    width: 23.5vw;
-    top: -6vw;
+    width: 22.5vw;
     position: relative;
 }
 
-#nosleep {
-    padding-top: 4vw;
+#oneactivity {
+    list-style: square;
+    padding-top: 0.25vw;
+    padding-left: 0.25vw;
+    padding-right: 0.25vw;
+    padding-bottom: 0.25vw;
+    width: 22.5vw;
+    position: relative;
+}
+
+#noactivity {
+    list-style: square;
     color: black;
     font-style: italic;
-    list-style: square;
     font-family: 'Roboto', sans-serif;
     position: relative;
 }
 
-#sleeps {
-    width: 25vw;
+#noazm {
+    list-style: square;
+    color: black;
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+}
+
+#activity {
+    width: 22.5vw;
     border-radius: 5%;
-    height: 24vw;
-    right: 0.4%;
+    height: 43vw;
+    left: 0.6%;
     top: 4vw;
     position: absolute;
     background-color: #c5d6e9;
@@ -31,11 +47,15 @@
     overflow: auto;
 }
 
-#imagesleep {
+#activityimage {
     height: 4vw;
     width: 4vw;
     position: relative;
     margin-right: 20vw;
+}
+
+#titreactivity {
+    height: 4vw;
 }
 
 h1 {
@@ -50,7 +70,6 @@ h1 {
     position: relative;
 }
 
-#titresleep {
-    position: relative;
-    height: 4vw;
+li {
+    text-align: left;
 }

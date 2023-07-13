@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import activityimage from "./public/assets/activity.png"
+import "./activity.css"
 
 type ActivityProps = {
     date : string
@@ -81,7 +83,6 @@ fetch(urlactivitylist, {
         steps.push(item.steps)
         distance.push(item.distance)
         activityname.push(item.activityName)
-        console.log(data)
        }}
       displayactivitylist(activeDuration,activitylevelmin, activitylevelname, activityname,calories,elevationgain,steps,distance)
     })
@@ -113,17 +114,17 @@ function displayactivityzone(dateTime: any[], activeZoneMinutes: any[], fatBurnA
         }
      
 
-    return (<div><ul>{info.length == 0 ?
-        <li>No datas about AZM</li> :
+    return (<div id="activity"><div id="titreactivity"><img id="activityimage" alt="activity" src={activityimage}/><h1>Body</h1></div><ul>{info.length == 0 ?
+        <li id="noazm">No datas about AZM</li> :
         <> {info.map((i, index) => (
-            <li key={index}>Date : {i[0]} , Active zone minutes: {i[1]} , Fat Burn Active Zone minutes : {i[2]}, Peak Active
+            <li id="oneazm" key={index}>Date : {i[0]}<ul><li> Active zone minutes : {i[1]/60*0.001}</li> <li> Fat Burn Active Zone minutes : {i[2]}</li><li> Peak Active
                 Zone
-                Minutes : {i[3]} </li>))}</>}
+                Minutes : {i[3]} </li></ul></li>))}</>}
     </ul> 
     <ul>{infolist.length == 0?
-            <li>No data about activity</li> :
+            <li id="noactivity">No data about activity</li> :
             <> {infolist.map((i,index) => (
-                <li key={index}>Date : {date}, Activity duration : {i[0]} , Activity name : {i[3]}, Activity level name: {i[2]} , Activity level duration : {i[1]}, Calories burned {i[4]},Elevation gain {i[4]}, Steps : {i[5]}, Distance : {i[6]}  </li>))}</>}
+                <li id="oneactivity" key={index}>Date : {date}<ul><li> Activity duration : {Math.round(i[0]/60*0.001)} min</li> <li> Activity name : {i[3]}</li><li> Activity level name : {i[2]} </li><li> Activity level duration : {i[1]}</li> <li> Calories burned : {i[4]}kcal</li><li>Elevation gain : {i[4]}</li><li> Steps : {i[5]}</li> <li>Distance : {i[6]}m</li> </ul>  </li>))}</>}
         </ul></div>)
 }
 export default Activity;

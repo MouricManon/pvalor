@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import moment from 'moment';
 import { getEnabledCategories } from 'trace_events';
+import heartimage from "./public/assets/heart.png"
+import "./heart.css"
+
 type HeartProps = {
   date : string
   token : string
@@ -209,29 +212,33 @@ fetch(urlspo, {
              
                 }
                 }
-   return (<div><input 
+   return (<div id="heart"><div id="titreheart"><img id="heartimage" alt="heart" src={heartimage}/><h1>Heart</h1></div>
+   <div className="datebegin"><h2>Choose the beginning date</h2><input 
     type="date" 
     value={datebeginning} 
     onChange={(event) => setDatebegin(event.target.value)} 
-  /> 
+  /> </div>
   <ul>{hr.length == 0 ?
-            <li>No HR found</li> :
+            <li id="nohr">No HR found</li> :
             <> {hr.map((i, index) => (
-                <li key={index}>Resting heart rate : {i[0]}</li>))}</>}
+                <li id="onehr" key={index}>Resting heart rate : {i[0]}</li>))}</>}
         </ul>
     <ul>{ecg.length == 0 ?
-            <li>No ecg found</li> :
+            <li id="noecg">No ecg found</li> :
             <> {ecg.map((i, index) => (
-                <li key={index}>ECG : Start time : {i[0]} , Average Heart rate : {i[1]} , Classification : {i[2]} , Frequency : {i[3]} , Scaling factor : {i[4]} , Number of waves :{i[5]}</li>))}</>}
+                <li id="oneecg" key={index}>ECG : Start time : {i[0]} , Average Heart rate : {i[1]} , Classification : {i[2]} , Frequency : {i[3]} , Scaling factor : {i[4]} , Number of waves :{i[5]}</li>))}</>}
     </ul>
     <ul>{hrv.length == 0 ? 
-            <li>No HRV found</li> :
+            <li id="nohrv">No HRV found</li> :
             <> {hrv.map((i, index) => (
-                <li key={index}>HRV : Date time : {i[2]} , Value of Hrv for daily Rmssd  :{i[0]}, Value of Hrv for deep Rmssd  : {i[1]} </li>))}</>}</ul>
+                <li id="onehrv" key={index}>HRV : Date time : {i[2]} , Value of Hrv for daily Rmssd  :{i[0]}, Value of Hrv for deep Rmssd  : {i[1]} </li>))}</>}</ul>
    <ul>{spo2.length == 0 ?
-            <li>No spo2 found</li> :
+            <li id="nospo2">No spo2 found</li> :
             <> {spo2.map((i, index) => (
-                <li key={index}>Spo2 : Date time : {i[0]} , Average : {i[1]} , Minimum : {i[2]} , Maximum : {i[3]} </li>))}</>}</ul>
+                <li id="onespo2" key={index}>Spo2 : Date time : {i[0]} , Average : {i[1]} , Minimum : {i[2]} , Maximum : {i[3]} </li>))}</>}
+               <div className="notdone"> <li > Blood pressure : Systolic Blood pressure </li>
+                <li>Diastolic Blood pressure</li></div></ul>
+                
 </div>)
 }
 export default Heart;

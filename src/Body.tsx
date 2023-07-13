@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import bodyimage from "./public/assets/body.png"
+import "./body.css"
 type BodyProps = {
   date : string
   token : string
@@ -112,40 +114,40 @@ avgtemp
 }
 function isnullfat(){
     if(fat===null|| fat===undefined){
-        return(<h1> There is no fat valor</h1>)
+        return(<li id="nofat"> There is no fat valor</li>)
     }
     else{
-        return(<h1>The average fat of the day is {fatdisplay()}</h1>)
+        return(<li id="onefat">The average fat of the day is {fatdisplay()}</li>)
     }
 }
 function isnullbmi(){
     if(bmi===null|| bmi===undefined){
-        return(<h1> There is no bmi valor</h1>)
+        return(<li id="nobmi"> There is no bmi valor</li>)
     }
     else{
-        return(<h1>bmi :{bmi}</h1>)
+        return(<li id="onebmi">bmi :{bmi}</li>)
     }
 }
 function isnullweight(){
     if(weight===null|| weight===undefined){
-        return(<h1> There is no weight valor</h1>)
+        return(<li id="noweight"> There is no weight valor</li>)
     }
     else{
-        return(<h1>The average weight of the day is {weightdisplay()}</h1>)
+        return(<li id="oneweight">The average weight of the day is {weightdisplay()}</li>)
     }
 }
 function isnulltemp(){
     if(temp===null|| temp===undefined){
-        return(<h1> There is no temperature valor</h1>)
+        return(<li id="notemp"> There is no temperature valor</li>)
     }
     else{
-        return(<h1>The average temperature of the day is {tempdisplay()}</h1>)
+        return(<li id="oneweight" >The average temperature of the day is {tempdisplay()}</li>)
     }
 }
-    return (<div>
-    <div>{isnullfat()}</div>
-    <div>{isnullweight()}</div>
-    <div>{isnulltemp()}</div>
-    <div>{isnullbmi()}</div></div>)
+    return (<div id="body"><div id="titrebody"><img id="bodyimage" alt="body" src={bodyimage}/><h1>Body</h1></div>
+   <ul> {isnullfat()}
+   {isnullweight()}
+   {isnulltemp()}
+   {isnullbmi()}</ul></div>)
 }
 export default Body;

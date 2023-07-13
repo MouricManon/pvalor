@@ -1,0 +1,122 @@
+#oneweight {
+    list-style: square;
+    padding-top: 0.25vw;
+    padding-left: 0.25vw;
+    padding-right: 0.25vw;
+    padding-bottom: 0.25vw;
+    width: 22.5vw;
+    position: relative;
+}
+
+#onefat {
+    list-style: square;
+    padding-top: 0.25vw;
+    padding-left: 0.25vw;
+    padding-right: 0.25vw;
+    padding-bottom: 0.25vw;
+    width: 22.5vw;
+    position: relative;
+}
+
+#onebmi {
+    list-style: square;
+    padding-top: 0.25vw;
+    padding-left: 0.25vw;
+    padding-right: 0.25vw;
+    padding-bottom: 0.25vw;
+    width: 22.5vw;
+    position: relative;
+}
+
+#onetemp {
+    list-style: square;
+    padding-top: 0.25vw;
+    padding-left: 0.25vw;
+    padding-right: 0.25vw;
+    padding-bottom: 0.25vw;
+    width: 22.5vw;
+    position: relative;
+}
+
+#noweight {
+    list-style: square;
+    color: black;
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+}
+
+#nofat {
+    list-style: square;
+    color: black;
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+}
+
+#nobmi {
+    list-style: square;
+    color: black;
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+}
+
+#notemp {
+    list-style: square;
+    color: black;
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+}
+
+#body {
+    width: 25vw;
+    border-radius: 5%;
+    height: 11vw;
+    right: 51.5%;
+    top: 4vw;
+    position: absolute;
+    background-color: #c5d6e9;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    overflow: auto;
+}
+
+#bodyimage {
+    height: 4vw;
+    width: 2vw;
+    position: relative;
+    margin-right: 20vw;
+}
+
+#titrebody {
+    height: 4vw;
+}
+
+h1 {
+    padding-top: 0.8vw;
+    font-weight: bold;
+    font-size: 2.5em;
+    top: -6vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+
+h2 {
+    padding-top: 0.8vw;
+    font-weight: bold;
+    font-size: 1.5em;
+    top: -6vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+li {
+    text-align: left;
+}
