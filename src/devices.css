@@ -1,44 +1,55 @@
-        #onedevice {
-            list-style: square;
-            padding-top: 0.25vw;
-            padding-left: 0.25vw;
-            padding-right: 0.25vw;
-            padding-bottom: 0.25vw;
-            width: 23.5vw;
-            justify-content: left;
-        }
-        
-        #nodevice {
-            padding-top: 4vw;
-            color: black;
-            font-weight: italic;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        #devices {
-            width: 30vw;
-            border-radius: 5%;
-            height: 15vw;
-            right: -67%;
-            top: 22vw;
-            position: relative;
-            background-color: #c5d6e9;
-            color: black;
-            font-family: 'Roboto', sans-serif;
-            /* position: absolute;
+            #onedevice {
+                list-style: square;
+                padding-top: 0.25vw;
+                padding-left: 0.25vw;
+                padding-right: 0.25vw;
+                padding-bottom: 0.25vw;
+                width: 22.5vw;
+                top: -6vw;
+                position: relative;
+            }
+            
+            #nodevice {
+                padding-top: 4vw;
+                color: black;
+                font-style: italic;
+                font-family: 'Roboto', sans-serif;
+                position: relative;
+            }
+            
+            #devices {
+                width: 30vw;
+                border-radius: 5%;
+                height: 18vw;
+                right: -69.6%;
+                top: 22vw;
+                position: relative;
+                background-color: #c5d6e9;
+                color: black;
+                font-family: 'Roboto', sans-serif;
+                /* position: absolute;
         z-index: 2;
         border: solid;
         overflow: scroll;*/
-        }
-        
-        #iot {}
-        
-        h1 {
-            padding-top: 0.8vw;
-            font-weight: bold;
-            font-size: 2.5em;
-            display: flex;
-            justify-content: center;
-            flex-direction: row;
-            align-items: center;
-        }
+            }
+            
+            #imageiot {
+                height: 4vw;
+                width: 4vw;
+                position: relative;
+                margin-bottom: -1vw;
+                margin-right: 21vw;
+                margin-left: -4vw;
+            }
+            
+            h1 {
+                padding-top: 0.8vw;
+                font-weight: bold;
+                font-size: 2.5em;
+                top: -6vw;
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                align-items: center;
+                position: relative;
+            }

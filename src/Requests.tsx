@@ -14,7 +14,7 @@ type RequestsProps = {
  /*<Body date={date} token={token} id={id} />
     <Activity date={date} token={token} id={id} />
     <Breath date={date} token={token} id={id} />
-    <Sleep date={date} token={token} id={id} />
+   
     <Heart date={date} token={token} id={id} />*/
 function Requests({token, id} : RequestsProps) {
   const [date, setDate] = useState(moment().format('YYYY-MM-DD')); 
@@ -23,7 +23,7 @@ function Requests({token, id} : RequestsProps) {
     return (
       <div>
     <Devices token={token} id={id} />
-   
+    <Sleep date={date} token={token} id={id} />
       </div>
     );
   }

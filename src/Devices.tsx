@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import "./devices.css"
+import IoTimage from "./public/assets/iot.png"
 
 type DevicesProps = {
   token: string;
@@ -59,11 +60,11 @@ function Devices({ token, id }: DevicesProps) {
   
   return (
     <div id="devices">
-      <h1>DEVICES</h1>
+     <div id="titre"><img id="imageiot" alt="IoT" src={IoTimage}/><h1>DEVICES</h1></div>
       <ul >{info.length == 0?
             <li id="nodevice">No devices found</li> :
             <> {info.map((i, index) => (
-                <li id="onedevice" key={index}> <img id="imageiot" alt="IoT" src="/assets/iot.jpg"/> Version : {i[0]} Last sync : {formatLastSyncTime(i[1])} Type : {i[2]}</li>))}</>}
+                <li id="onedevice" key={index}>  Version : {i[0]} Last sync : {formatLastSyncTime(i[1])} Type : {i[2]}</li>))}</>}
         </ul>
     </div>
   );

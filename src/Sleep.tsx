@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import Sleepimage from "./public/assets/sleepicon.jpg"
+import "./sleep.css"
 type SleepProps = {
   date : string
   token : string
@@ -67,10 +69,11 @@ function sleepdisplay(duration: any[], efficiency:any[], minutesAsleep:any[], mi
     }
     
     return (<div>
-         <ul>{sleep.length == 0?
-            <li>No sleep's data found</li> :
+         <div ><img id="imagesleep" alt="Sleep icon" src={Sleepimage}/> <h1>SLEEP</h1></div>
+         <ul id="sleeps">{sleep.length == 0?
+            <li id="nosleep">No sleep's data found</li> :
             <> {sleep.map((i, index) => (
-                <li key={index}>  Duration : {i[0]} , Efficiency : {i[1]}%, Minutes Asleep : {i[2]}, Minutes Awake : {i[3]}, Stages :  Deep sleep : {i[3]}, Light sleep : {i[4]}, Rem sleep : {i[5]}, Wake time : {i[6]}</li>))}</>}
+                <li key={index} id="onesleep">  Duration : {i[0]} , Efficiency : {i[1]}%, Minutes Asleep : {i[2]}, Minutes Awake : {i[3]}, Stages :  Deep sleep : {i[3]}, Light sleep : {i[4]}, Rem sleep : {i[5]}, Wake time : {i[6]}</li>))}</>}
         </ul>
 </div>)
 }
