@@ -140,7 +140,7 @@ fetch(urlspo, {
         let avg: any[] = []
         let min: any[] = []
         let max: any[] = []
-            if(data==undefined||data==null){
+            if (Object.keys(data).length === 0) {
             }
             else{
        for(let item of data){

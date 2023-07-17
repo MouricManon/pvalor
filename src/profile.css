@@ -1,18 +1,18 @@
 #name {
-    position: relative;
+    position: absolute;
     color: black;
     font-weight: bold;
     font-family: 'Roboto', sans-serif;
     font-size: 2vw;
     top: 1vw;
-    right: 40vw;
+    right: 84vw;
 }
 
 #birthdate {
-    position: relative;
+    position: absolute;
     color: black;
     font-family: 'Roboto', sans-serif;
     font-size: 2vw;
-    top: -1.5vw;
-    right: 23vw;
+    top: 1vw;
+    right: 69vw;
 }

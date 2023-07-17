@@ -114,7 +114,7 @@ function displayactivityzone(dateTime: any[], activeZoneMinutes: any[], fatBurnA
         }
      
 
-    return (<div id="activity"><div id="titreactivity"><img id="activityimage" alt="activity" src={activityimage}/><h1>Body</h1></div><ul>{info.length == 0 ?
+    return (<div id="activity"><div id="titreactivity"><img id="activityimage" alt="activity" src={activityimage}/><h1>Activity</h1></div><ul>{info.length == 0 ?
         <li id="noazm">No datas about AZM</li> :
         <> {info.map((i, index) => (
             <li id="oneazm" key={index}>Date : {i[0]}<ul><li> Active zone minutes : {i[1]/60*0.001}</li> <li> Fat Burn Active Zone minutes : {i[2]}</li><li> Peak Active
