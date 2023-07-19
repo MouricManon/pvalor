@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './App.css';
-import Requests from './Requests'
+import Requests from './Display'
 import Profile from './Profile'
 import GeneratePkce from './GeneratePkce'
 
