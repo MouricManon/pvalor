@@ -9,12 +9,18 @@ function Redirect(){
         extractCode()
     },[])
 
-    function extractCode(){
-        let url = window.location.href;
-        let authorizationcode = url.split("code=")[1].split("&")[0]
-        getTokens(authorizationcode);
+    function extractCode() {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const authorizationcode = urlSearchParams.get('code');
+        console.log("Code: " + authorizationcode)
+        if (authorizationcode !== null) {
+            getTokens(authorizationcode);
+        }
     }
 function getTokens(authorizationcode: string){
+    if(access_token!=""){
+        return;
+    }
     let codeVerifier = codeverifier;
     //authorization_code : "Basic " + base64encode(client_id + ":" + client_secret)
     const url = "https://api.fitbit.com/oauth2/token";

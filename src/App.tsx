@@ -10,6 +10,7 @@ import {
   HRV, Spo2, BreathingRateEntry, CardioScoreEntry
 } from "./public/types";
 import moment from 'moment';
+import downloadimage from "./public/assets/download.jpg"
 import {clientId, clientSecret, scope, codeverifier, codechallenge} from "./GeneratePkce";
 import './App.css';
 import Display from './Display'
@@ -67,9 +68,11 @@ function App({  token, refreshtoken }: AppProps) {
         setError(false)
     }
 
-    useEffect(() => {
-        //refreshTokens()
-    }, [error])
+    useEffect(() =>
+     { setToken(token)
+        setRefreshToken(refreshtoken)
+      //  refreshTokens()
+    }, [token])
 
     function downloadData() {
         //Trigger le téléchargement du useState data en JSON
@@ -557,11 +560,10 @@ function App({  token, refreshtoken }: AppProps) {
   return (
     <div className="App">
           <div className="buttonsApp">
-                <button onClick={() => {
+                <img id="downloadimage" alt="click to download" src={downloadimage}onClick={() => {
                     downloadData()
                 }
-                }>Download data
-                </button>
+                }/>
                 <input id="choosedate"
                        type="date"
                        value={date}
@@ -569,7 +571,7 @@ function App({  token, refreshtoken }: AppProps) {
                        onChange={(event) => setDate(event.target.value)}
                 />
                 <h4>Choose the beginning date</h4><input
-                type="date"
+                type="date" id="datebegin"
                 value={datebeginning}
                 onChange={(event) => setDatebegin(event.target.value)}
             />

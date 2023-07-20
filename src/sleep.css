@@ -54,3 +54,11 @@ h1 {
     position: relative;
     height: 4vw;
 }
+
+.notdonesleep {
+    background-image: linear-gradient(45deg, #8b8b8b 25%, transparent 25%, transparent 75%, #8b8b8b 75%, #8b8b8b), linear-gradient(45deg, #8b8b8b 25%, transparent 25%, transparent 75%, #8b8b8b 75%, #8b8b8b);
+    background-size: 3px 3px;
+    background-position: 0 0, 4px 4px;
+    right: 2vw;
+    position: relative;
+}

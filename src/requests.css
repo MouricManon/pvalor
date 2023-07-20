@@ -1,6 +1,12 @@
 #choosedate {
     position: absolute;
     display: flex;
-    top: 2.25vw;
+    top: 1.5vw;
     right: 57vw;
+}
+
+h4 {
+    right: 18vw;
+    top: 0.25vw;
+    position: absolute;
 }
