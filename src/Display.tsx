@@ -20,7 +20,7 @@ function Display({data,date}: DisplayProps) {
   
 
     return (
-      <div>
+      <div id="display">
    <DevicesC  data={data.connected_devices} date={date} /> 
     <SleepC data={data.date.sleep} date={date}  /> 
     <BreathC  data={data.date.breath} date={date} />

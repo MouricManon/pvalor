@@ -11,7 +11,8 @@ function GeneratePkce(){
     const [pkcecodechallenge, setPkcecodechallenge] = useState(codechallenge);
     
    function urlredirect(){
-    let url = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id="+clientId+"&scope="+scope+"&code_challenge="+pkcecodechallenge+"&code_challenge_method=S256";
+    let url = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id="+clientId+"&scope="+scope+
+    "&code_challenge="+pkcecodechallenge+"&code_challenge_method=S256";
     window.open(url, "_self");
 }
 

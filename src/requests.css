@@ -10,3 +10,9 @@ h4 {
     top: 0.25vw;
     position: absolute;
 }
+
+#display {
+    position: relative;
+    justify-content: center;
+    height: center;
+}
